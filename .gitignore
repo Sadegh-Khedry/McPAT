@@ -30,3 +30,7 @@
 # McPAT custom
 mcpat
 obj_opt/
+
+# input files 
+input/*
+mibench/*
