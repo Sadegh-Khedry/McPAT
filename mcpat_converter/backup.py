@@ -42,98 +42,100 @@ def create_mcpat_xml(stats, config):
     Creates an McPAT XML file based on the gem5 stats and config.
     """
     mcpat_template = """<?xml version="1.0"?>
-    <component id="root" name="root" >
-        <component id="system" name="system">
-            <param name="number_of_cores" value="1"/>
-            <param name="number_of_L1I_caches" value="1"/>
-            <param name="number_of_L1D_caches" value="1"/>
-            <param name="number_of_L2_caches" value="1"/>
-            <param name="number_of_L3_caches" value="0"/>
-            <param name="number_of_NoC" value="0"/>
-            <param name="target_core_clockrate" value="0"/>
-            <param name="total_cycles" value="0"/>
-            <param name="peak_power_per_chip" value="0"/>
-            <param name="total_insts" value="0"/>
+<component id="root" name="root" >
+    <component id="system" name="system">
+        <param name="number_of_cores" value="1"/>
+        <param name="number_of_L1I_caches" value="1"/>
+        <param name="number_of_L1D_caches" value="1"/>
+        <param name="number_of_L2_caches" value="1"/>
+        <param name="number_of_L3_caches" value="0"/>
+        <param name="number_of_NoC" value="0"/>
+        <param name="target_core_clockrate" value="0"/>
+        <param name="total_cycles" value="0"/>
+        <param name="peak_power_per_chip" value="0"/>
+        <param name="total_insts" value="0"/>
+        <component id="core0" name="core">
+            <param name="clock_rate" value="0"/>
+            <param name="total_inst" value="0"/>
+            <param name="int_inst" value="0"/>
+            <param name="fp_inst" value="0"/>
+            <param name="load_inst" value="0"/>
+            <param name="store_inst" value="0"/>
+            <param name="committed_inst" value="0"/>
+            <param name="committed_int_inst" value="0"/>
+            <param name="committed_fp_inst" value="0"/>
+            <param name="rob_accesses" value="0"/>
+            <param name="issue_queue_accesses" value="0"/>
+            <param name="int_regfile_reads" value="0"/>
+            <param name="fp_regfile_reads" value="0"/>
+            <param name="int_regfile_writes" value="0"/>
+            <param name="fp_regfile_writes" value="0"/>
+            <param name="rename_accesses" value="0"/>
+            <param name="rob_reads" value="0"/>
+            <param name="rob_writes" value="0"/>
+            <param name="L1I_hits" value="0"/>
+            <param name="L1I_misses" value="0"/>
+            <param name="L1D_hits" value="0"/>
+            <param name="L1D_misses" value="0"/>
+            <param name="L2_hits" value="0"/>
+            <param name="L2_misses" value="0"/>
+            <param name="Instruction_Fetch_Buffer_reads" value="0"/>
+            <param name="Instruction_Fetch_Buffer_writes" value="0"/>
+            <param name="ITLB_accesses" value="0"/>
+            <param name="ITLB_misses" value="0"/>
+            <param name="DTLB_accesses" value="0"/>
+            <param name="DTLB_misses" value="0"/>
+            <param name="branch_insts" value="0"/>
+            <param name="branch_mispredictions" value="0"/>
+        </component>
+        <component id="L1_I_cache" name="L1Icache">
+            <param name="cache_size" value="0"/>
+            <param name="line_size" value="0"/>
+            <param name="associativity" value="0"/>
+            <param name="bank" value="1"/>
+            <param name="sequential_access" value="true"/>
+            <param name="read_accesses" value="0"/>
+            <param name="write_accesses" value="0"/>
+            <param name="total_accesses" value="0"/>
+            <param name="total_reads" value="0"/>
+            <param name="total_writes" value="0"/>
+        </component>
+        <component id="L1_D_cache" name="L1Dcache">
+            <param name="cache_size" value="0"/>
+            <param name="line_size" value="0"/>
+            <param name="associativity" value="0"/>
+            <param name="bank" value="1"/>
+            <param name="sequential_access" value="true"/>
+            <param name="read_accesses" value="0"/>
+            <param name="write_accesses" value="0"/>
+            <param name="total_accesses" value="0"/>
+            <param name="total_reads" value="0"/>
+            <param name="total_writes" value="0"/>
+        </component>
+        <component id="L2_cache" name="L2cache">
+            <param name="cache_size" value="0"/>
+            <param name="line_size" value="0"/>
+            <param name="associativity" value="0"/>
+            <param name="bank" value="1"/>
+            <param name="sequential_access" value="true"/>
+            <param name="read_accesses" value="0"/>
+            <param name="write_accesses" value="0"/>
+            <param name="total_accesses" value="0"/>
+            <param name="total_reads" value="0"/>
+            <param name="total_writes" value="0"/>
+        </component>
+        <component id="L1_directory" name="L1Directory">
             <param name="number_of_L1Directories" value="0"/>
             <param name="homogeneous_L1Directories" value="1"/>
-            <component id="core0" name="core">
-                <param name="clock_rate" value="0"/>
-                <param name="total_inst" value="0"/>
-                <param name="int_inst" value="0"/>
-                <param name="fp_inst" value="0"/>
-                <param name="load_inst" value="0"/>
-                <param name="store_inst" value="0"/>
-                <param name="committed_inst" value="0"/>
-                <param name="committed_int_inst" value="0"/>
-                <param name="committed_fp_inst" value="0"/>
-                <param name="rob_accesses" value="0"/>
-                <param name="issue_queue_accesses" value="0"/>
-                <param name="int_regfile_reads" value="0"/>
-                <param name="fp_regfile_reads" value="0"/>
-                <param name="int_regfile_writes" value="0"/>
-                <param name="fp_regfile_writes" value="0"/>
-                <param name="rename_accesses" value="0"/>
-                <param name="rob_reads" value="0"/>
-                <param name="rob_writes" value="0"/>
-                <param name="L1I_hits" value="0"/>
-                <param name="L1I_misses" value="0"/>
-                <param name="L1D_hits" value="0"/>
-                <param name="L1D_misses" value="0"/>
-                <param name="L2_hits" value="0"/>
-                <param name="L2_misses" value="0"/>
-                <param name="Instruction_Fetch_Buffer_reads" value="0"/>
-                <param name="Instruction_Fetch_Buffer_writes" value="0"/>
-                <param name="ITLB_accesses" value="0"/>
-                <param name="ITLB_misses" value="0"/>
-                <param name="DTLB_accesses" value="0"/>
-                <param name="DTLB_misses" value="0"/>
-                <param name="branch_insts" value="0"/>
-                <param name="branch_mispredictions" value="0"/>
-            </component>
-            <component id="L1_I_cache" name="L1Icache">
-                <param name="cache_size" value="0"/>
-                <param name="line_size" value="0"/>
-                <param name="associativity" value="0"/>
-                <param name="bank" value="1"/>
-                <param name="sequential_access" value="true"/>
-                <param name="read_accesses" value="0"/>
-                <param name="write_accesses" value="0"/>
-                <param name="total_accesses" value="0"/>
-                <param name="total_reads" value="0"/>
-                <param name="total_writes" value="0"/>
-            </component>
-            <component id="L1_D_cache" name="L1Dcache">
-                <param name="cache_size" value="0"/>
-                <param name="line_size" value="0"/>
-                <param name="associativity" value="0"/>
-                <param name="bank" value="1"/>
-                <param name="sequential_access" value="true"/>
-                <param name="read_accesses" value="0"/>
-                <param name="write_accesses" value="0"/>
-                <param name="total_accesses" value="0"/>
-                <param name="total_reads" value="0"/>
-                <param name="total_writes" value="0"/>
-            </component>
-            <component id="L2_cache" name="L2cache">
-                <param name="cache_size" value="0"/>
-                <param name="line_size" value="0"/>
-                <param name="associativity" value="0"/>
-                <param name="bank" value="1"/>
-                <param name="sequential_access" value="true"/>
-                <param name="read_accesses" value="0"/>
-                <param name="write_accesses" value="0"/>
-                <param name="total_accesses" value="0"/>
-                <param name="total_reads" value="0"/>
-                <param name="total_writes" value="0"/>
-            </component>
-            <component id="main_memory" name="main_memory">
-                <param name="peak_memory_bw" value="25.6"/>
-                <param name="ext_dram_accesses" value="0"/>
-            </component>
+            <param name="L1Directory_type" value="0"/>
+        </component>
+        <component id="main_memory" name="main_memory">
+            <param name="peak_memory_bw" value="25.6"/>
+            <param name="ext_dram_accesses" value="0"/>
         </component>
     </component>
-    """
-
+</component>
+"""
 
 
     tree = ET.ElementTree(ET.fromstring(mcpat_template))
